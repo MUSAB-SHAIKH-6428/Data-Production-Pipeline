@@ -1,0 +1,10 @@
+# Ignore environment variables and Word docs
+*.env
+*.docx
+
+# Ignore Python virtual environments and versions
+.venv/
+.python-version
+
+# Ignore project requirements/notes text files
+Business Requirements.txt

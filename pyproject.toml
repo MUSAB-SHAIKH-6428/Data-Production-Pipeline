@@ -1,0 +1,19 @@
+[project]
+name = "data-production-pipeline"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Musab Shaikh", email = "233562398+MUSAB-SHAIKH-6428@users.noreply.github.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "pandas>=3.0.5",
+]
+
+[project.scripts]
+data-production-pipeline = "data_production_pipeline:main"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
