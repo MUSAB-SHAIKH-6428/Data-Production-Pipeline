@@ -4,37 +4,32 @@
 [![Status](https://img.shields.io/badge/status-specification--ready-success.svg)]()
 [![Architecture](https://img.shields.io/badge/architecture-Medallion%20Lakehouse-orange.svg)]()
 
-Production-grade analytical data pipeline engineered to ingest, cleanse, model, and serve Olist's multi-source operational e-commerce data into a centralized analytical lakehouse/data warehouse.
+Production-grade analytical data pipeline engineered to ingest, cleanse, model, and serve Olist's multi-source operational e-commerce data into a centralized analytical lakehouse and data warehouse.
 
 ---
 
-## 📖 Primary Documentation
+## 📚 Project Documentation
 
-The comprehensive developer requirements, data architecture, dimensional modeling (SCD Type 2), KPI definitions, data quality contracts, and scalability blueprints are documented in:
+The documentation is organized into modular, domain-specific guides under the [`DOCUMENTATION/`](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION) directory:
 
-👉 **[DATA_PIPELINE_SPECIFICATION.md](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DATA_PIPELINE_SPECIFICATION.md)**
+| # | Document | Focus Area |
+| :---: | :--- | :--- |
+| **01** | [**Business Requirements & Scope**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/01_BUSINESS_REQUIREMENTS.md) | Business problem, BR-01 to BR-07, stakeholder personas, questions catalog, 07:00 AM SLA. |
+| **02** | [**Data Sources & Ingestion Strategy**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/02_DATA_SOURCES_AND_INGESTION.md) | 5 source systems, off-peak PostgreSQL protection, read-only constraints, S3 raw landing. |
+| **03** | [**Data Modeling & SCD Strategy**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/03_DATA_MODELING_AND_SCD.md) | Star schema ER diagram, fact table grains, surrogate keys, Slowly Changing Dimensions (SCD-2). |
+| **04** | [**KPIs & Business Metrics Dictionary**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/04_KPIS_AND_METRICS.md) | Standardized mathematical formulas, grains, and definitions for all corporate metrics. |
+| **05** | [**Data Quality, Governance & Observability**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/05_DATA_QUALITY_AND_GOVERNANCE.md) | Data contract validation matrix, Dead Letter Queue (DLQ), idempotency, and audit logging. |
+| **06** | [**System Architecture & Roadmap**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/06_ARCHITECTURE_AND_ROADMAP.md) | Medallion Lakehouse architecture, 10-phase roadmap, Airflow DAG flow, repository blueprint. |
+| **07** | [**Scale, Throughput & Growth Projections**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/07_SCALE_AND_GROWTH.md) | Baseline volume (590k/day), 4-year scaling ($1\times \rightarrow 8\times$), anti-laptop architecture rules. |
 
 ---
 
-## 🚀 Quick Overview
+## 🚀 Architecture Snapshot
 
-### Source Data Landscape
-- **Operational PostgreSQL:** Live transactions, order items, payments, customer updates.
-- **Kaggle Datasets:** Historical e-commerce baseline archives.
-- **BigQuery Public Datasets:** Geospatial coordinates and regional macroeconomic indicators.
-- **Public APIs:** Currency exchange rates and postal address verification.
-- **Government Data:** Brazilian IBGE demographic, municipal, and tax code datasets.
-
-### Target Architecture (Medallion Pattern)
-- **Bronze (Raw Zone):** Immutable, partitioned Parquet storage of raw extracts with ingestion metadata.
-- **Silver (Conformed & Cleansed):** Schema-validated, deduplicated, standardized entities with **Slowly Changing Dimensions (SCD Type 2)** for customers and products.
-- **Gold (Curated Business Marts):** Star schema dimensional marts for Sales, Marketing, Operations, Finance, and Executive decision-making.
-- **Quarantine / DLQ:** Strict capture of invalid records ensuring no bad data silently disappears.
-
-### SLAs & Freshness
-- **Daily Batch:** Orchestrated off-peak run ensuring data is verified and available by **07:00 AM** every day.
-- **Strict Idempotency:** Any pipeline failure is safely restartable without duplicating rows or corrupting analytical state.
-- **Scalability:** Designed for high throughput (starting at ~590k records/day and scaling $8\times$ over 4 years to billions of rows annually).
+- **Source Systems:** Operational PostgreSQL (Read-replica/CDC), Kaggle baseline files, BigQuery Public Data, Public REST APIs, Government (IBGE) Data.
+- **Storage & Compute:** AWS S3 raw landing $\rightarrow$ Databricks (PySpark / Delta Lake) Medallion Architecture (Bronze, Silver, Gold) $\rightarrow$ PostgreSQL Analytical Marts $\rightarrow$ Power BI.
+- **Orchestration:** Apache Airflow with automated daily batch execution by **07:00 AM SLA**.
+- **Quality & Resilience:** Dead Letter Queue (DLQ) quarantine pattern, strict idempotency, and Slowly Changing Dimensions (SCD Type 2).
 
 ---
 
@@ -42,12 +37,18 @@ The comprehensive developer requirements, data architecture, dimensional modelin
 
 ```text
 Data-Production-Pipeline/
-├── DATA_PIPELINE_SPECIFICATION.md   # Complete technical & architecture specification
-├── Business Requirements.txt        # Original raw business requirements
-├── pyproject.toml                   # UV / Python package configuration
+├── DOCUMENTATION/
+│   ├── 01_BUSINESS_REQUIREMENTS.md
+│   ├── 02_DATA_SOURCES_AND_INGESTION.md
+│   ├── 03_DATA_MODELING_AND_SCD.md
+│   ├── 04_KPIS_AND_METRICS.md
+│   ├── 05_DATA_QUALITY_AND_GOVERNANCE.md
+│   ├── 06_ARCHITECTURE_AND_ROADMAP.md
+│   ├── 07_SCALE_AND_GROWTH.md
+│   └── README.md
+├── Business Requirements.txt            # Original business requirements
+├── pyproject.toml                       # UV / Python package configuration
 ├── src/
-│   └── data_production_pipeline/   # Pipeline source code packages
-└── README.md                        # Project introduction
+│   └── data_production_pipeline/       # Pipeline source code packages
+└── README.md                            # Project entry point
 ```
-
-For full details on business rules (BR-01 through BR-07), KPI calculations, data quality rules, and system constraints, please refer to [DATA_PIPELINE_SPECIFICATION.md](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DATA_PIPELINE_SPECIFICATION.md).

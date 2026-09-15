@@ -8,3 +8,6 @@
 
 # Ignore project requirements/notes text files
 Business Requirements.txt
+
+# ignore business decisions
+DECISION.md
