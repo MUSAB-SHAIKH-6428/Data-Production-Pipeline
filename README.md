@@ -49,7 +49,7 @@ Data-Production-Pipeline/
 │   ├── 05_DATA_QUALITY_AND_GOVERNANCE.md
 │   ├── 06_ARCHITECTURE_AND_ROADMAP.md
 │   ├── 07_SCALE_AND_GROWTH.md
-│   └── README.md
+│  
 ├── Kaggle_dataset/                      # Baseline Brazilian E-Commerce dataset
 ├── Business Requirements.txt            # Original business requirements
 ├── DECISION.md                          # Design decisions & model specifications
