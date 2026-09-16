@@ -37,6 +37,10 @@ The documentation is organized into modular, domain-specific guides under the [`
 
 ```text
 Data-Production-Pipeline/
+├── architecture_design/                 # Architectural & dimensional schema diagrams
+│   ├── Data_Model.png                   # Kaggle source relational model
+│   ├── DETAILED_DIM_MODEL.png           # Enterprise dimensional bus architecture
+│   └── DIM_MODEL.png                    # Target dimensional star schema
 ├── DOCUMENTATION/
 │   ├── 01_BUSINESS_REQUIREMENTS.md
 │   ├── 02_DATA_SOURCES_AND_INGESTION.md
@@ -46,7 +50,9 @@ Data-Production-Pipeline/
 │   ├── 06_ARCHITECTURE_AND_ROADMAP.md
 │   ├── 07_SCALE_AND_GROWTH.md
 │   └── README.md
+├── Kaggle_dataset/                      # Baseline Brazilian E-Commerce dataset
 ├── Business Requirements.txt            # Original business requirements
+├── DECISION.md                          # Design decisions & model specifications
 ├── pyproject.toml                       # UV / Python package configuration
 ├── src/
 │   └── data_production_pipeline/       # Pipeline source code packages

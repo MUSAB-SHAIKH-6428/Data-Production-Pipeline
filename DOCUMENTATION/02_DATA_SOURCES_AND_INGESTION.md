@@ -4,17 +4,46 @@
 
 ---
 
-## 1. Source Systems Inventory
+## 1. Source Systems Inventory & Strategy
 
-The pipeline ingests data across five distinct external and internal sources:
+> **Decision Note (per DECISION.md):** The pipeline currently ingests and processes **exclusively the Kaggle Dataset** for initial inspection, business decisions, and dimensional data modeling. Integration of additional external or operational sources is deferred to future project iterations.
 
-| Source System | Data Domain | Ingestion Frequency | Ingestion Mechanism | Target Format |
+### 1.1 Active Primary Source: Kaggle E-Commerce Dataset
+
+All active ingestion pipelines extract from the baseline Brazilian E-Commerce dataset (located in `Kaggle_dataset/`):
+
+| File / Dataset | Entity Domain | Ingestion Frequency | Ingestion Mechanism | Target Layer |
 | :--- | :--- | :--- | :--- | :--- |
-| **Operational PostgreSQL** | Orders, order items, payments, customer master, seller profiles | Daily batch (incremental) | Read-Replica JDBC / WAL CDC | Parquet / JSON |
-| **Kaggle Datasets** | Historical baseline e-commerce dataset (reviews, orders, customer logs) | One-time bootstrap & backfills | Cloud Storage Sync / Download | Parquet |
-| **BigQuery Public Data** | Geospatial reference tables, Brazilian postal coordinates, macro indices | Periodic batch (Monthly) | BQ Storage Read API | Parquet |
-| **Public REST APIs** | Currency exchange rates, logistics tracking status, geocoding validation | Daily incremental snapshots | Python HTTP Client (Rate-limited) | JSON |
-| **Government Data (IBGE)** | Brazilian census, municipal codes, holiday calendars, regional tax codes | Static / Quarterly refresh | Scheduled HTTP / SFTP fetch | Parquet / CSV |
+| `olist_orders_dataset.csv` | Order headers & milestone timestamps | Batch baseline / periodic backfill | CSV / Lakehouse Ingestion | Raw / Bronze Parquet |
+| `olist_order_items_dataset.csv` | Item SKUs, prices, freight charges | Batch baseline / periodic backfill | CSV / Lakehouse Ingestion | Raw / Bronze Parquet |
+| `olist_order_payments_dataset.csv` | Payment types, installments, sequence | Batch baseline / periodic backfill | CSV / Lakehouse Ingestion | Raw / Bronze Parquet |
+| `olist_order_reviews_dataset.csv` | Customer ratings, reviews, response times | Batch baseline / periodic backfill | CSV / Lakehouse Ingestion | Raw / Bronze Parquet |
+| `olist_customers_dataset.csv` | Customer ID, Unique ID, city, state, zip | Batch baseline / periodic backfill | CSV / Lakehouse Ingestion | Raw / Bronze Parquet |
+| `olist_products_dataset.csv` | Product dimensions, categories, photos | Batch baseline / periodic backfill | CSV / Lakehouse Ingestion | Raw / Bronze Parquet |
+| `olist_sellers_dataset.csv` | Seller ID, city, state, zip code | Batch baseline / periodic backfill | CSV / Lakehouse Ingestion | Raw / Bronze Parquet |
+| `olist_geolocation_dataset.csv` | Zip prefixes, coordinates, city, state | Static reference | CSV / Lakehouse Ingestion | Raw / Bronze Parquet |
+| `product_category_name_translation.csv` | Category translation (PT -> EN) | Static lookup | CSV / Lakehouse Ingestion | Raw / Bronze Parquet |
+
+### 1.2 Kaggle Source Relational Data Model
+
+Below is the source relational schema and entity relationships for the Kaggle dataset:
+
+![Kaggle Source Relational Data Model](../architecture_design/Data_Model.png)
+
+*Note: `category_name_id` and `geolocation_id` serve as synthetic surrogate reference keys where natural IDs were absent in source files.*
+
+---
+
+### 1.3 Deferred / Future Data Sources
+
+The following sources were identified during system design but are **on hold**. Decisions regarding their integration will be evaluated in subsequent roadmap phases:
+
+| Source System | Data Domain | Planned Mechanism | Status |
+| :--- | :--- | :--- | :--- |
+| **Operational PostgreSQL** | Live order checkout & seller profiles | Read-Replica JDBC / WAL CDC | Deferred (post-MVP) |
+| **BigQuery Public Data** | Geospatial reference tables & postal coords | BQ Storage Read API | Deferred (post-MVP) |
+| **Public REST APIs** | Currency exchange rates, logistics tracking | Rate-limited HTTP client | Deferred (post-MVP) |
+| **Government Data (IBGE)** | Brazilian census, municipal codes, holiday calendars | Scheduled HTTP / SFTP fetch | Deferred (post-MVP) |
 
 ---
 
