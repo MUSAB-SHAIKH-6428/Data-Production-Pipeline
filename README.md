@@ -21,6 +21,7 @@ The documentation is organized into modular, domain-specific guides under the [`
 | **05** | [**Data Quality, Governance & Observability**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/05_DATA_QUALITY_AND_GOVERNANCE.md) | Data contract validation matrix, Dead Letter Queue (DLQ), idempotency, and audit logging. |
 | **06** | [**System Architecture & Roadmap**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/06_ARCHITECTURE_AND_ROADMAP.md) | Medallion Lakehouse architecture, 10-phase roadmap, Airflow DAG flow, repository blueprint. |
 | **07** | [**Scale, Throughput & Growth Projections**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/07_SCALE_AND_GROWTH.md) | Baseline volume (590k/day), 4-year scaling ($1\times \rightarrow 8\times$), anti-laptop architecture rules. |
+| **08** | [**DWH Architecture & Physical Design**](file:///C:/Users/MUSAB/Desktop/Data-Production-Pipeline/DOCUMENTATION/08_DWH_DESIGN.md) | Physical layout of `ecommerce_dwh`, staging tables, DDLs, indexes, constraints, and ELT lineage. |
 
 ---
 
@@ -49,10 +50,11 @@ Data-Production-Pipeline/
 │   ├── 05_DATA_QUALITY_AND_GOVERNANCE.md
 │   ├── 06_ARCHITECTURE_AND_ROADMAP.md
 │   ├── 07_SCALE_AND_GROWTH.md
-│  
+│   └── 08_DWH_DESIGN.md
 ├── Kaggle_dataset/                      # Baseline Brazilian E-Commerce dataset
 ├── Business Requirements.txt            # Original business requirements
 ├── DECISION.md                          # Design decisions & model specifications
+├── dwh_design.md                        # Data warehouse physical design specification
 ├── pyproject.toml                       # UV / Python package configuration
 ├── src/
 │   └── data_production_pipeline/       # Pipeline source code packages

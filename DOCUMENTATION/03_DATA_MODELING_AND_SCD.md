@@ -215,3 +215,14 @@ Unlike transaction facts that represent instantaneous events, `FACT_ORDERS` mode
 5. **Promised SLA Date** &rarr; `estimated_delivery_date_key`, `estimated_delivery_date`
 
 As the order progresses through each milestone, the accumulating snapshot record is updated with timestamp and date key foreign keys, enabling rapid calculation of end-to-end cycle times and fulfillment latency.
+
+---
+
+## 6. Physical Warehouse Architecture & Schemas (`ecommerce_dwh`)
+
+The dimensional model is implemented within the **`ecommerce_dwh`** database following a two-tier ELT schema architecture:
+
+* **`staging` Schema:** Source-aligned, type-cast, and cleaned tables representing the Kaggle datasets (`stg_customers`, `stg_orders`, `stg_order_items`, `stg_order_payments`, `stg_order_reviews`, `stg_products`, `stg_sellers`).
+* **`dwh` Schema:** Serving layer hosting the 4 Kimball dimensions (`dim_customers`, `dim_products`, `dim_sellers`, `dim_date`) and 4 facts (`fact_orders`, `fact_order_items`, `fact_payments`, `fact_order_reviews`).
+
+> For full physical DDL scripts, constraints, indexing strategies, and lineage flows, refer to [08. Data Warehouse Architecture & Physical Design](08_DWH_DESIGN.md).
