@@ -12,13 +12,13 @@ To support high-performance analytical queries and self-serve business intellige
 
 The comprehensive star schema architecture defines 4 fact tables and 4 dimension tables:
 
-![Dimensional Data Model](../architecture_design/DIM_MODEL.png)
+![Dimensional Data Model](../Architecture_design_images/DIM_MODEL.png)
 
 ### 1.2 Enterprise Bus Architecture Matrix
 
 The dimensional bus structure links conforming dimensions across core transactional and snapshot business processes:
 
-![Detailed Dimensional Bus Architecture](../architecture_design/DETAILED_DIM_MODEL.png)
+![Detailed Dimensional Bus Architecture](../Architecture_design_images/DETAILED_DIM_MODEL.png)
 
 ---
 

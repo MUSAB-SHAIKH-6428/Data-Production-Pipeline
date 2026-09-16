@@ -38,7 +38,7 @@ The documentation is organized into modular, domain-specific guides under the [`
 
 ```text
 Data-Production-Pipeline/
-├── architecture_design/                 # Architectural & dimensional schema diagrams
+├── Architecture_design_images/          # Architectural & dimensional schema diagrams
 │   ├── Data_Model.png                   # Kaggle source relational model
 │   ├── DETAILED_DIM_MODEL.png           # Enterprise dimensional bus architecture
 │   └── DIM_MODEL.png                    # Target dimensional star schema
@@ -52,9 +52,10 @@ Data-Production-Pipeline/
 │   ├── 07_SCALE_AND_GROWTH.md
 │   └── 08_DWH_DESIGN.md
 ├── Kaggle_dataset/                      # Baseline Brazilian E-Commerce dataset
+├── sql/
+│   └── init_schema.sql                  # PostgreSQL staging & DWH DDL script
 ├── Business Requirements.txt            # Original business requirements
 ├── DECISION.md                          # Design decisions & model specifications
-├── dwh_design.md                        # Data warehouse physical design specification
 ├── pyproject.toml                       # UV / Python package configuration
 ├── src/
 │   └── data_production_pipeline/       # Pipeline source code packages

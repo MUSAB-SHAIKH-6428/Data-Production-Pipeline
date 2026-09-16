@@ -28,7 +28,7 @@ All active ingestion pipelines extract from the baseline Brazilian E-Commerce da
 
 Below is the source relational schema and entity relationships for the Kaggle dataset:
 
-![Kaggle Source Relational Data Model](../architecture_design/Data_Model.png)
+![Kaggle Source Relational Data Model](../Architecture_design_images/Data_Model.png)
 
 *Note: `category_name_id` and `geolocation_id` serve as synthetic surrogate reference keys where natural IDs were absent in source files.*
 
